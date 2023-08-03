@@ -22,8 +22,8 @@ export class AudioEffect extends AudioSource {
      * @param url           音效资源地址
      * @param callback      资源加载完成并开始播放回调
      */
-    load(url: string, callback?: Function) {
-        oops.res.load(url, AudioClip, (err: Error | null, data: AudioClip) => {
+    load(bundle:string,url: string, callback?: Function) {
+        oops.res.load(bundle,url, AudioClip, (err: Error | null, data: AudioClip) => {
             if (err) {
                 error(err);
             }

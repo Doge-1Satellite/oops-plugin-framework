@@ -91,9 +91,9 @@ export class AudioManager extends Component {
      * 播放音效
      * @param url        资源地址
      */
-    playEffect(url: string) {
+    playEffect(bundle:string,url: string) {
         if (this._switch_effect) {
-            this.effect.load(url);
+            this.effect.load(bundle,url);
         }
     }
 

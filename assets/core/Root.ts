@@ -16,6 +16,8 @@ import { GameManager } from "./game/GameManager";
 import { GUI } from "./gui/GUI";
 import { LayerManager } from "./gui/layer/LayerManager";
 import { TimerManager } from "./common/timer/TimerManager";
+import { netChannel } from "../../../../assets/script/net/NetChannelManager";
+// import { NetManager } from "../libs/network/NetManager";
 
 const { ccclass, property } = _decorator;
 
@@ -42,6 +44,15 @@ export class Root extends Component {
         console.log(`Oops Framework v${version}`);
         this.enabled = false;
 
+        netChannel.gameCreate();
+        console.log("开始连接服务器");
+        netChannel.gameConnect({
+            url: `ws://118.89.94.124:8088`,
+            autoReconnect: 0,        // 手动重连接
+            headers: `BearereyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvckdXOTZXUkRPUGpKWFEzX0VxTnMtdXhGS20iLCJleHAiOjE2OTEwNDg1NzAsImlhdCI6MTY5MDk2MjE3MH0.hgS_50-2K9PqiWcQrgrpCgqf_AcSLOjWx74ABwiWrtM`
+        });
+        
+
         let config_name = "config";
         oops.res.load(config_name, JsonAsset, () => {
             var config = oops.res.get(config_name);
@@ -52,6 +63,8 @@ export class Root extends Component {
             oops.http.timeout = oops.config.game.httpTimeout;                                    // Http 请求超时时间
             oops.storage.init(oops.config.game.localDataKey, oops.config.game.localDataIv);      // 初始化本地存储加密
             game.frameRate = oops.config.game.frameRate;                                         // 初始化每秒传输帧数
+
+
 
             this.enabled = true;
             this.init();

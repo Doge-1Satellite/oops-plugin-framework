@@ -1,4 +1,4 @@
-import { warn } from "cc";
+import { error, warn } from "cc";
 import { EventDispatcher } from "../../../core/common/event/EventDispatcher";
 import { Logger } from "../../../core/common/log/Logger";
 import { LanguageData } from "./LanguageData";
@@ -17,37 +17,32 @@ export class LanguageManager extends EventDispatcher {
     private _languagePack: LanguagePack = new LanguagePack();    // 语言包  
 
     /** 设置多语言系统支持哪些语种 */
-    set supportLanguages(supportLanguages: Array<string>) {
+    public set supportLanguages(supportLanguages: Array<string>) { 
         this._support = supportLanguages;
-    }
-
-    /** 语言包 */
-    get pack(): LanguagePack {
-        return this._languagePack;
     }
 
     /**
      * 获取当前语种
      */
-    get current(): string {
+    public get current(): string {
         return LanguageData.current;
     }
 
     /**
      * 获取支持的多语种数组
      */
-    get languages(): string[] {
+    public get languages(): string[] {
         return this._support;
     }
 
-    isExist(lang: string): boolean {
+    public isExist(lang: string): boolean {
         return this.languages.indexOf(lang) > -1;
     }
 
     /**
      * 获取下一个语种
      */
-    getNextLang(): string {
+    public getNextLang(): string {
         let supportLangs = this.languages;
         let index = supportLangs.indexOf(LanguageData.current);
         let newLanguage = supportLangs[(index + 1) % supportLangs.length];
@@ -58,7 +53,7 @@ export class LanguageManager extends EventDispatcher {
      * 改变语种，会自动下载对应的语种，下载完成回调
      * @param language 
      */
-    setLanguage(language: string, callback: (success: boolean) => void) {
+    public setLanguage(language: string, callback: (success: boolean) => void) {
         if (!language) {
             language = DEFAULT_LANGUAGE;
         }
@@ -73,7 +68,13 @@ export class LanguageManager extends EventDispatcher {
             return;
         }
 
-        this.loadLanguageAssets(language, (lang: string) => {
+        this.loadLanguageAssets(language, (err: any, lang: string) => {
+            if (err) {
+                error("语言资源包下载失败", err);
+                callback(false);
+                return;
+            }
+
             Logger.logConfig(`当前语言为【${language}】`);
             LanguageData.current = language;
             this._languagePack.updateLanguage(language);
@@ -83,11 +84,20 @@ export class LanguageManager extends EventDispatcher {
     }
 
     /**
+     * 设置多语言资源目录
+     * @param langjsonPath 多语言json目录
+     * @param langTexturePath 多语言图片目录
+     */
+    public setAssetsPath(langjsonPath: string, langTexturePath: string) {
+        this._languagePack.setAssetsPath(langjsonPath, langTexturePath);
+    }
+
+    /**
      * 根据data获取对应语种的字符
      * @param labId 
      * @param arr 
      */
-    getLangByID(labId: string): string {
+    public getLangByID(labId: string): string {
         return LanguageData.getLangByID(labId);
     }
 
@@ -97,7 +107,7 @@ export class LanguageManager extends EventDispatcher {
      * @param lang 
      * @param callback 
      */
-    loadLanguageAssets(lang: string, callback: Function) {
+    public loadLanguageAssets(lang: string, callback: Function) {
         lang = lang.toLowerCase();
         return this._languagePack.loadLanguageAssets(lang, callback);
     }
@@ -106,7 +116,7 @@ export class LanguageManager extends EventDispatcher {
      * 释放不需要的语言包资源
      * @param lang 
      */
-    releaseLanguageAssets(lang: string) {
+    public releaseLanguageAssets(lang: string) {
         lang = lang.toLowerCase();
         this._languagePack.releaseLanguageAssets(lang);
         this.dispatchEvent(LanguageEvent.RELEASE_RES, lang);
