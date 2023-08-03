@@ -49,7 +49,7 @@ export class Root extends Component {
         netChannel.gameConnect({
             url: `ws://118.89.94.124:8088`,
             autoReconnect: 0,        // 手动重连接
-            headers: `BearereyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvckdXOTZXUkRPUGpKWFEzX0VxTnMtdXhGS20iLCJleHAiOjE2OTEwNDg1NzAsImlhdCI6MTY5MDk2MjE3MH0.hgS_50-2K9PqiWcQrgrpCgqf_AcSLOjWx74ABwiWrtM`
+            headers: `BearereyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvckdXOTZXUkRPUGpKWFEzX0VxTnMtdXhGS20iLCJleHAiOjE2OTExMzM2NTQsImlhdCI6MTY5MTA0NzI1NH0.y1aWx39B85YBQqoyqnMhwWH4velKue9N0HUBnv4TdWw`
         });
         
 
