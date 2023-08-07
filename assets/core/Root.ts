@@ -49,9 +49,9 @@ export class Root extends Component {
         netChannel.gameConnect({
             url: `ws://118.89.94.124:8088`,
             autoReconnect: 0,        // 手动重连接
-            headers: `BearereyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvckdXOTZXUkRPUGpKWFEzX0VxTnMtdXhGS20iLCJleHAiOjE2OTExMzYyMTcsImlhdCI6MTY5MTA0OTgxN30.0HKmcwG7iuFWoxQPTSNv_E8D1h_qsFVHAJMRLl1aRcU`
+            headers: `BearereyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvckdXOTZXUkRPUGpKWFEzX0VxTnMtdXhGS20iLCJleHAiOjE2OTEzNzI3NzgsImlhdCI6MTY5MTI4NjM3OH0.hXGQoZWlM79Cep_ZtjyG53u1wvkWZuSGZyGsNxLIAFg`
         });
-        
+
 
         let config_name = "config";
         oops.res.load(config_name, JsonAsset, () => {
