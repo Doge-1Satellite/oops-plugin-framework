@@ -47,9 +47,9 @@ export class Root extends Component {
         netChannel.gameCreate();
         console.log("开始连接服务器");
         netChannel.gameConnect({
-            url: `ws://118.89.94.124:8088`,
+            url: `wss://dwmf.erapilot.xyz:8088`,
             autoReconnect: 0,        // 手动重连接
-            headers: `BearereyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvckdXOTZXUkRPUGpKWFEzX0VxTnMtdXhGSyIsImV4cCI6MTY5MTY0NDc5OSwiaWF0IjoxNjkxNTU4Mzk5fQ.COhZ0TIHMtqHSIdUQEK99fB7gWzQWwBEi8pw-Q96UtU`
+            headers: `BearereyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvckdXOTZXUkRPUGpKWFEzX0VxTnMtdXhGS20iLCJleHAiOjE2OTI3Njc2MTcsImlhdCI6MTY5MjY4MTIxN30.djXBJOXm8h6PEqia3zNQY47mShSpRTgkux1D5uQBQQA`
         });
 
 
