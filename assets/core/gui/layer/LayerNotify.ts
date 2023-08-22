@@ -11,7 +11,7 @@ import { ViewParams } from "./Defines";
 import { DelegateComponent } from "./DelegateComponent";
 import { LayerUI } from "./LayerUI";
 
-const ToastPrefabPath: string = 'common/prefab/notify';
+const ToastPrefabPath: string = 'Windows/Common/Prefab/notify';
 
 /*
  * 滚动消息提示层
@@ -36,7 +36,7 @@ export class LayerNotify extends LayerUI {
 
     protected load(viewParams: ViewParams) {
         // 获取预制件资源
-        oops.res.load(viewParams.prefabPath, (err: Error | null, res: Prefab) => {
+        oops.res.load("res",viewParams.prefabPath, (err: Error | null, res: Prefab) => {
             if (err) {
                 error(err);
             }
