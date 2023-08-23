@@ -78,7 +78,63 @@ export class Root extends Component {
                     request.send(`jsCode=${code}`);
                 }
             });
-        } else {
+        } if (sys.platform === sys.Platform.BYTEDANCE_MINI_GAME) {
+            console.log("当前平台为抖音小游戏平台");
+            tt.login({
+                force: true,
+                success(res) {
+                    console.log(`login 调用成功${res.code} ${res.anonymousCode}`)
+                    let code = res.code;
+
+                    //链接服务器
+                    const request = new XMLHttpRequest();
+                    request.onreadystatechange = function () {
+                        if (request.readyState === 4) {
+                            console.log(request.status)
+
+                            if (request.status >= 200 && request.status < 400) {
+                                // 请求成功处理
+                                console.log(request.responseText);
+                                let json = JSON.parse(request.responseText)
+                                heards = json.data.secWebSocketProtocol;
+                                netChannel.gameCreate();
+                                console.log("开始连接服务器");
+                                netChannel.gameConnect({
+                                    url: `wss://dwmf.erapilot.xyz:8088`,
+                                    autoReconnect: 0,        // 手动重连接
+                                    headers: heards
+                                });
+                            } else {
+                                // 请求失败处理
+                                console.error('Network request failed', request.statusText);
+                            }
+                        }
+                    };
+                    request.open('POST', `https://dwmf.erapilot.xyz:8088/weChat/login`, true);
+                    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    request.send(`jsCode=${code}`);
+
+                    //获取用户信息
+                    // tt.getUserInfo({
+                    //     // withCredentials: true,
+                    //     // withRealNameAuthenticationInfo: true,
+                    //     success(res) {
+                    //         console.log(`getUserInfo 调用成功`, res.userInfo);
+                    //     },
+                    //     fail(res) {
+                    //         console.log(`getUserInfo 调用失败`, res.errMsg);
+                    //     },
+                    // });
+                    //--end
+                },
+                fail(res) {
+                    console.log(`login 调用失败`)
+                },
+            })
+
+        }
+        else {
+            console.log("其他平台");
             const request = new XMLHttpRequest();
             request.onreadystatechange = function () {
                 if (request.readyState === 4) {
@@ -104,8 +160,8 @@ export class Root extends Component {
             };
             request.open('POST', `https://dwmf.erapilot.xyz:8088/weChat/login`, true);
             request.setRequestHeader('Access-Control-Allow-Origin', '*');
-            request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            request.setRequestHeader('User-Agent','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0');
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            request.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0');
             request.send(`jsCode=123`);
             // console.log("非微信小程序登入")
             // netChannel.gameCreate();
@@ -118,26 +174,26 @@ export class Root extends Component {
         }
 
         let config_name = "config";
-            oops.res.load(config_name, JsonAsset, () => {
-                var config = oops.res.get(config_name);
-                oops.config.btc = new BuildTimeConstants();
-                oops.config.query = new GameQueryConfig();
-                oops.config.game = new GameConfig(config);
-                oops.http.server = oops.config.game.httpServer;                                      // Http 服务器地址
-                oops.http.timeout = oops.config.game.httpTimeout;                                    // Http 请求超时时间
-                oops.storage.init(oops.config.game.localDataKey, oops.config.game.localDataIv);      // 初始化本地存储加密
-                game.frameRate = oops.config.game.frameRate;                                         // 初始化每秒传输帧数
+        oops.res.load(config_name, JsonAsset, () => {
+            var config = oops.res.get(config_name);
+            oops.config.btc = new BuildTimeConstants();
+            oops.config.query = new GameQueryConfig();
+            oops.config.game = new GameConfig(config);
+            oops.http.server = oops.config.game.httpServer;                                      // Http 服务器地址
+            oops.http.timeout = oops.config.game.httpTimeout;                                    // Http 请求超时时间
+            oops.storage.init(oops.config.game.localDataKey, oops.config.game.localDataIv);      // 初始化本地存储加密
+            game.frameRate = oops.config.game.frameRate;                                         // 初始化每秒传输帧数
 
 
-                this.enabled = true;
-                this.init();
-                this.run();
-            });
-        }
+            this.enabled = true;
+            this.init();
+            this.run();
+        });
+    }
 
-        update(dt: number) {
-            oops.ecs.execute(dt);
-        }
+    update(dt: number) {
+        oops.ecs.execute(dt);
+    }
 
     /** 初始化游戏界面 */
     protected initGui() {
