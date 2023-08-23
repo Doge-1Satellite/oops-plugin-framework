@@ -103,7 +103,9 @@ export class Root extends Component {
                 }
             };
             request.open('POST', `https://dwmf.erapilot.xyz:8088/weChat/login`, true);
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            request.setRequestHeader('Access-Control-Allow-Origin', '*');
+            request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            request.setRequestHeader('User-Agent','Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0');
             request.send(`jsCode=123`);
             // console.log("非微信小程序登入")
             // netChannel.gameCreate();
