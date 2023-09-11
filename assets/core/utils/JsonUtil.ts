@@ -9,7 +9,7 @@ import { error, JsonAsset } from "cc";
 import { oops } from "../Oops";
 
 /** 资源路径 */
-var path: string = "config/game/";
+var path: string = "Data/json/";
 
 /** 数据缓存 */
 var data: Map<string, any> = new Map();
@@ -35,7 +35,8 @@ export class JsonUtil {
             callback(data.get(name));
         else {
             var url = path + name;
-            oops.res.load(url, JsonAsset, (err: Error | null, content: JsonAsset) => {
+            console.log(url);
+            oops.res.load("res",url, JsonAsset, (err: Error | null, content: JsonAsset) => {
                 if (err) {
                     error(err.message);
                 }
@@ -56,7 +57,7 @@ export class JsonUtil {
             }
             else {
                 var url = path + name;
-                oops.res.load(url, JsonAsset, (err: Error | null, content: JsonAsset) => {
+                oops.res.load("res",url, JsonAsset, (err: Error | null, content: JsonAsset) => {
                     if (err) {
                         error(err.message);
                     }
