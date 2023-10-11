@@ -10,6 +10,7 @@ import { Notify } from "../prompt/Notify";
 import { ViewParams } from "./Defines";
 import { DelegateComponent } from "./DelegateComponent";
 import { LayerUI } from "./LayerUI";
+import { announcementSys } from "../../../../../../assets/script/pop/announcementSys";
 
 const ToastPrefabPath: string = 'Windows/Common/Prefab/notify';
 
@@ -21,11 +22,18 @@ export class LayerNotify extends LayerUI {
      * 显示toast
      * @param content 文本表示
      * @param useI18n 是否使用多语言
+     * @param prefab 9.15_王敬宇 修改: prefab参数不是原生, prefab用于滚动消息提示, 不填写不影响原生功能
      */
-    show(content: string, useI18n: boolean): void {
+    show(content?: string, useI18n?: boolean, prefab?: string): void {
         var viewParams = new ViewParams();
-        viewParams.uuid = this.getUuid(ToastPrefabPath);
-        viewParams.prefabPath = ToastPrefabPath;
+        if (prefab == null) {
+            viewParams.uuid = this.getUuid(ToastPrefabPath);
+            viewParams.prefabPath = ToastPrefabPath;
+        }
+        else {
+            viewParams.uuid = this.getUuid(prefab);
+            viewParams.prefabPath = prefab;
+        }
         viewParams.params = { content: content, useI18n: useI18n };
         viewParams.callbacks = {};
         viewParams.valid = true;
@@ -36,11 +44,10 @@ export class LayerNotify extends LayerUI {
 
     protected load(viewParams: ViewParams) {
         // 获取预制件资源
-        oops.res.load("res",viewParams.prefabPath, (err: Error | null, res: Prefab) => {
+        oops.res.load("res", viewParams.prefabPath, (err: Error | null, res: Prefab) => {
             if (err) {
                 error(err);
             }
-
             let childNode: Node = instantiate(res);
             viewParams.node = childNode;
 
@@ -54,8 +61,12 @@ export class LayerNotify extends LayerUI {
     protected createNode(viewParams: ViewParams) {
         let childNode: Node = super.createNode(viewParams);
         let toastCom = childNode.getComponent(Notify)!;
+        // let annCom = childNode.getComponent(announcementSys)!;
         childNode.active = true;
-        toastCom.toast(viewParams.params.content, viewParams.params.useI18n);
+        if (toastCom != null)
+            toastCom.toast(viewParams.params.content, viewParams.params.useI18n);
+        // if(annCom != null)
+        //     annCom.show(viewParams.params.content);
         return childNode;
     }
 }

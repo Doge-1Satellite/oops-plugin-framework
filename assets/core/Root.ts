@@ -61,7 +61,7 @@ export class Root extends Component {
                                 netChannel.gameCreate();
                                 console.log("开始连接服务器");
                                 netChannel.gameConnect({
-                                    url: `wss://dwmf.erapilot.xyz:8088`,
+                                    url: `wss://dwmf.erapilot.xyz:8086`,
                                     autoReconnect: 0,        // 手动重连接
                                     headers: heards
                                 });
@@ -71,7 +71,7 @@ export class Root extends Component {
                             }
                         }
                     };
-                    request.open('POST', `https://dwmf.erapilot.xyz:8088/weChat/login`, true);
+                    request.open('POST', `https://dwmf.erapilot.xyz:8086/weChat/login`, true);
                     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     request.send(`jsCode=${code}`);
                 }
@@ -97,7 +97,7 @@ export class Root extends Component {
                                 netChannel.gameCreate();
                                 console.log("开始连接服务器");
                                 netChannel.gameConnect({
-                                    url: `wss://dwmf.erapilot.xyz:8088`,
+                                    url: `wss://dwmf.erapilot.xyz:8086`,
                                     autoReconnect: 0,        // 手动重连接
                                     headers: heards
                                 });
@@ -107,7 +107,7 @@ export class Root extends Component {
                             }
                         }
                     };
-                    request.open('POST', `https://dwmf.erapilot.xyz:8088/weChat/login`, true);
+                    request.open('POST', `https://dwmf.erapilot.xyz:8086/weChat/login`, true);
                     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     request.send(`jsCode=${code}&mode=${mode}`);
 
@@ -159,12 +159,12 @@ export class Root extends Component {
             request.setRequestHeader('Access-Control-Allow-Origin', '*');
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             request.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0');
-            request.send(`jsCode=123`);
+            request.send(`jsCode=456`);
             // console.log("非微信小程序登入")
             // netChannel.gameCreate();
             // console.log("开始连接服务器");
             // netChannel.gameConnect({
-            //     url: `wss://dwmf.erapilot.xyz:8088`,
+            //     url: `wss://dwmf.erapilot.xyz:8086`,
             //     autoReconnect: 0,        // 手动重连接
             //     headers: heards
             // })

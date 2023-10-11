@@ -92,13 +92,13 @@ export class LayerManager {
 
     /**
      * 渐隐飘过提示
-     * @param content 文本表示
+     * @param content 文本表示 
      * @param useI18n 是否使用多语言
      * @example 
      * oops.gui.toast("提示内容");
      */
-    toast(content: string, useI18n: boolean = false) {
-        this.notify.show(content, useI18n)
+    toast(content: string, useI18n: boolean = false, prefab?: string) {
+        this.notify.show(content, useI18n, prefab);
     }
 
     /**
