@@ -101,9 +101,9 @@ export class ViewUtil {
      * 加载预制并创建预制节点
      * @param path 资源路径
      */
-    static createPrefabNodeAsync(path: string): Promise<Node> {
+    static createPrefabNodeAsync(path: string,res?:string): Promise<Node> {
         return new Promise(async (resolve, reject) => {
-            oops.res.load(path, Prefab, (err: Error | null, content: Prefab) => {
+            oops.res.load(res,path, Prefab, (err: Error | null, content: Prefab) => {
                 if (err) {
                     console.error(`名为【${path}】的资源加载失败`);
                     return;
@@ -120,8 +120,8 @@ export class ViewUtil {
      * @param path          资源路径
      * @param callback      资源加载完成回调
      */
-    static loadPrefabNode(path: string, callback: Function) {
-        oops.res.load(path, Prefab, (err: Error | null, content: Prefab) => {
+    static loadPrefabNode(path: string,res:string, callback: Function) {
+        oops.res.load(res,path, Prefab, (err: Error | null, content: Prefab) => {
             if (err) {
                 console.error(`名为【${path}】的资源加载失败`);
                 return;

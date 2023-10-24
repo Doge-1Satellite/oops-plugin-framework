@@ -4,7 +4,7 @@
  * @LastEditors: dgflash
  * @LastEditTime: 2022-09-02 14:07:13
  */
-import { Animation, Component, Label, _decorator } from "cc";
+import { Animation, Component, RichText, _decorator } from "cc";
 import { LanguageLabel } from "../../../libs/gui/language/LanguageLabel";
 
 const { ccclass, property } = _decorator;
@@ -12,8 +12,8 @@ const { ccclass, property } = _decorator;
 /** 滚动消息提示组件  */
 @ccclass('Notify')
 export class Notify extends Component {
-    @property(Label)
-    private lab_content: Label | null = null;
+    @property(RichText)
+    private lab_content: RichText | null = null;
 
     @property(Animation)
     private animation: Animation | null = null;

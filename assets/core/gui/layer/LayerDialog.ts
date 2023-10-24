@@ -53,7 +53,7 @@ export class LayerDialog extends LayerPopUp {
         else {
             viewParams.params = params || {};
             this.current = viewParams;
-            this.load(viewParams);
+            this.load(viewParams,"res");
         }
 
         return uuid;
