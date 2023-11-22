@@ -7,6 +7,7 @@ import { LayerNotify } from "./LayerNotify";
 import { LayerPopUp } from "./LayerPopup";
 import { LayerUI } from "./LayerUI";
 import { UIMap } from "./UIMap";
+import { UIID } from "../../../../../../assets/script/game/common/config/GameUIConfig";
 
 /** 界面层类型 */
 export enum LayerType {
@@ -63,6 +64,8 @@ export class LayerManager {
     guide!: Node;
     /** 界面地图 */
     uiMap!: UIMap;
+
+    pageLayer = 0;
 
     /** 界面层 */
     private ui!: LayerUI;
@@ -138,12 +141,19 @@ export class LayerManager {
     oops.gui.open(UIID.Loading, null, uic);
      */
     open(uiId: number, uiArgs: any = null, callbacks?: UICallbacks): void {
+        if (uiId == UIID.Demo && this.pageLayer > 0) {
+            console.log('cant open Demo', this.pageLayer);
+            return;
+        }
         var config = this.configs[uiId];
         if (config == null) {
             warn(`打开编号为【${uiId}】的界面失败，配置信息不存在`);
             return;
         }
-
+        if (uiId != UIID.Netinstable) {
+            this.pageLayer++;
+            console.log('+++open', this.pageLayer, 'page:' + uiId);
+        }
         switch (config.layer) {
             case LayerType.UI:
                 this.ui.add(config, uiArgs, callbacks);
@@ -158,6 +168,7 @@ export class LayerManager {
                 this.system.add(config, uiArgs, callbacks);
                 break;
         }
+        
     }
 
     /**
@@ -222,7 +233,11 @@ export class LayerManager {
             warn(`删除编号为【${uiId}】的界面失败，配置信息不存在`);
             return;
         }
-
+        if (uiId != UIID.Netinstable) {
+            this.pageLayer--;
+        }
+        this.pageLayer = (this.pageLayer >= 0) ? this.pageLayer : 0;
+        console.log('+++remove+', this.pageLayer, 'page:' + uiId);
         switch (config.layer) {
             case LayerType.UI:
                 this.ui.remove(config.prefab, isDestroy);

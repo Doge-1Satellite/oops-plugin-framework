@@ -56,7 +56,10 @@ export class LayerUI extends Node {
         var viewParams = this.ui_nodes.get(uuid);
 
         if (viewParams && viewParams.valid) {
-            warn(`路径为【${prefabPath}】的预制重复加载`);
+            /**控制窗口层数 */
+            oops.gui.pageLayer--;
+
+            warn(`路径为【${prefabPath}】的预制重复加载,pageLayer-1,+++pageLayer = ${oops.gui.pageLayer}`);
             return "";
         }
 

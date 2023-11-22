@@ -40,7 +40,134 @@ export class Root extends Component {
     onLoad() {
         console.log(`Oops Framework v${version}`);
         this.enabled = false;
+        // let heards: string;
+        // if (sys.platform === sys.Platform.WECHAT_GAME) {
+        //     console.log("验证login")
+        //     wx.login({
+        //         success: (res) => {
+        //             let code = res.code;
+        //             console.log(code);
+        //             const request = new XMLHttpRequest();
+        //             request.onreadystatechange = function () {
+        //                 if (request.readyState === 4) {
+        //                     console.log(request.status)
 
+        //                     if (request.status >= 200 && request.status < 400) {
+        //                         // 请求成功处理
+        //                         console.log(request.responseText);
+        //                         let json = JSON.parse(request.responseText)
+        //                         heards = json.data.secWebSocketProtocol;
+        //                         netChannel.gameCreate();
+        //                         console.log("开始连接服务器");
+        //                         netChannel.gameConnect({
+        //                             url: `wss://dwmf.erapilot.xyz:8086`,
+        //                             autoReconnect: 0,        // 手动重连接
+        //                             headers: heards
+        //                         });
+        //                     } else {
+        //                         // 请求失败处理
+        //                         console.error('Network request failed', request.statusText);
+        //                     }
+        //                 }
+        //             };
+        //             request.open('POST', `https://dwmf.erapilot.xyz:8086/weChat/login`, true);
+        //             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        //             request.send(`jsCode=${code}`);
+        //         }
+        //     });
+        // } if (sys.platform === sys.Platform.BYTEDANCE_MINI_GAME) {
+        //     console.log("当前平台为抖音小游戏平台");
+        //     let mode = 1;
+        //     tt.login({
+        //         force: true,
+        //         success(res) {
+        //             console.log(`login 调用成功${res.code} ${res.anonymousCode}`)
+        //             let code = res.code;
+        //             //链接服务器
+        //             const request = new XMLHttpRequest();
+        //             request.onreadystatechange = function () {
+        //                 if (request.readyState === 4) {
+        //                     console.log(request.status)
+        //                     if (request.status >= 200 && request.status < 400) {
+        //                         // 请求成功处理
+        //                         console.log(request.responseText);
+        //                         let json = JSON.parse(request.responseText)
+        //                         heards = json.data.secWebSocketProtocol;
+        //                         netChannel.gameCreate();
+        //                         console.log("开始连接服务器");
+        //                         netChannel.gameConnect({
+        //                             url: `wss://dwmf.erapilot.xyz:8086`,
+        //                             autoReconnect: 0,        // 手动重连接
+        //                             headers: heards
+        //                         });
+        //                     } else {
+        //                         // 请求失败处理
+        //                         console.error('Network request failed', request.statusText);
+        //                     }
+        //                 }
+        //             };
+        //             request.open('POST', `https://dwmf.erapilot.xyz:8086/weChat/login`, true);
+        //             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        //             request.send(`jsCode=${code}&mode=${mode}`);
+
+        //             //获取用户信息
+        //             // tt.getUserInfo({
+        //             //     // withCredentials: true,
+        //             //     // withRealNameAuthenticationInfo: true,
+        //             //     success(res) {
+        //             //         console.log(`getUserInfo 调用成功`, res.userInfo);
+        //             //     },
+        //             //     fail(res) {
+        //             //         console.log(`getUserInfo 调用失败`, res.errMsg);
+        //             //     },
+        //             // });
+        //             //--end
+        //         },
+        //         fail(res) {
+        //             console.log(`login 调用失败`)
+        //         },
+        //     })
+
+        // }
+        // else {
+        //     console.log("其他平台");
+        //     const request = new XMLHttpRequest();
+        //     request.onreadystatechange = function () {
+        //         if (request.readyState === 4) {
+        //             console.log(request.status)
+
+        //             if (request.status >= 200 && request.status < 400) {
+        //                 // 请求成功处理
+        //                 console.log(request.responseText);
+        //                 let json = JSON.parse(request.responseText)
+        //                 heards = json.data.secWebSocketProtocol;
+        //                 netChannel.gameCreate();
+        //                 console.log("开始连接服务器");
+        //                 netChannel.gameConnect({
+        //                     url: `wss://dwmf.erapilot.xyz:8086`,
+        //                     autoReconnect: 0,        // 手动重连接
+        //                     headers: heards
+        //                 });
+        //             } else {
+        //                 // 请求失败处理
+        //                 console.error('Network request failed', request.statusText);
+        //             }
+        //         }
+        //     };
+        //     request.open('POST', `https://dwmf.erapilot.xyz:8086/weChat/login`, true);
+        //     request.setRequestHeader('Access-Control-Allow-Origin', '*');
+        //     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        //     request.setRequestHeader('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0');
+        //     request.send(`jsCode=456`);
+        //     // console.log("非微信小程序登入")
+        //     // netChannel.gameCreate();
+        //     // console.log("开始连接服务器");
+        //     // netChannel.gameConnect({
+        //     //     url: `wss://dwmf.erapilot.xyz:8086`,
+        //     //     autoReconnect: 0,        // 手动重连接
+        //     //     headers: heards
+        //     // })
+        // }
 
         let config_name = "config";
         oops.res.load(config_name, JsonAsset, () => {
