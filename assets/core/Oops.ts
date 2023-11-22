@@ -16,7 +16,6 @@ import { Logger } from "./common/log/Logger";
 import { StorageManager } from "./common/storage/StorageManager";
 import { TimerManager } from "./common/timer/TimerManager";
 import { GameManager } from "./game/GameManager";
-import { AdManager } from "./game/AdManager";
 import { LayerManager } from "./gui/layer/LayerManager";
 
 /** 框架版本号 */

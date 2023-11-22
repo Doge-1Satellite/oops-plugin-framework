@@ -207,9 +207,9 @@ export class Root extends Component {
     }
 
     protected init() {
-        console.log("开启动态合图");
-        macro.CLEANUP_IMAGE_CACHE = false;
-        dynamicAtlasManager.enabled = true;
+        // console.log("开启动态合图");
+        // macro.CLEANUP_IMAGE_CACHE = false;
+        // dynamicAtlasManager.enabled = true;
         // 创建持久根节点
         this.persistRootNode = new Node("PersistRootNode");
         director.addPersistRootNode(this.persistRootNode);

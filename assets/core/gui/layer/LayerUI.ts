@@ -96,7 +96,6 @@ export class LayerUI extends Node {
                 if (err) {
                     error(err);
                 }
-
                 let childNode: Node = instantiate(res);
                 viewParams.node = childNode;
 
