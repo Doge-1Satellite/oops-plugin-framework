@@ -50,8 +50,8 @@ export class PhysicsUtil {
     static MAP = new GroupItem(8,'MAP');
     static LOOT = new GroupItem(16,'LOOT');
     static MOVEMAP = new GroupItem(32,'MOVEMAP');
-    static SKILLTREE = new GroupItem(64,'SKILLTREE');
-    static SKILLSLOT = new GroupItem(128,'SKILLSLOT');
+    static OBSTACLES = new GroupItem(64,'OBSTACLES');
+    // static SKILLSLOT = new GroupItem(128,'SKILLSLOT');
     static setNodeLayer(item: GroupItem, node: Node) {
         node.layer = item.mask;
         node.children.forEach(n => {
