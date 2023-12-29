@@ -151,11 +151,12 @@ export class LayerManager {
             return;
         }
         if (uiId != UIID.Netinstable) {
-            this.pageLayer++;
-            console.log('+++open', this.pageLayer, 'page:' + uiId);
+
         }
         switch (config.layer) {
             case LayerType.UI:
+                this.pageLayer++;
+                console.log('+++open', this.pageLayer, 'page:' + uiId);
                 this.ui.add(config, uiArgs, callbacks);
                 break;
             case LayerType.PopUp:
@@ -168,7 +169,7 @@ export class LayerManager {
                 this.system.add(config, uiArgs, callbacks);
                 break;
         }
-        
+
     }
 
     /**
@@ -233,13 +234,12 @@ export class LayerManager {
             warn(`删除编号为【${uiId}】的界面失败，配置信息不存在`);
             return;
         }
-        if (uiId != UIID.Netinstable) {
-            this.pageLayer--;
-        }
-        this.pageLayer = (this.pageLayer >= 0) ? this.pageLayer : 0;
-        console.log('+++remove+', this.pageLayer, 'page:' + uiId);
+
         switch (config.layer) {
             case LayerType.UI:
+                this.pageLayer--;
+                this.pageLayer = (this.pageLayer >= 0) ? this.pageLayer : 0;
+                console.log('+++remove+', this.pageLayer, 'page:' + uiId);
                 this.ui.remove(config.prefab, isDestroy);
                 break;
             case LayerType.PopUp:
