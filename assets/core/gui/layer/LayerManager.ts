@@ -150,9 +150,6 @@ export class LayerManager {
             warn(`打开编号为【${uiId}】的界面失败，配置信息不存在`);
             return;
         }
-        if (uiId != UIID.Netinstable) {
-
-        }
         switch (config.layer) {
             case LayerType.UI:
                 this.pageLayer++;

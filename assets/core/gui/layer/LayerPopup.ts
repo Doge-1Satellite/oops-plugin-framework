@@ -38,6 +38,7 @@ export class LayerPopUp extends LayerUI {
     }
 
     remove(prefabPath: string, isDestroy: boolean): void {
+        console.log("弹窗层关闭窗口")
         super.remove(prefabPath, isDestroy);
         this.setBlackDisable();
     }
