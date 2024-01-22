@@ -193,7 +193,7 @@ export class MessageManager {
      * @param event(string)      事件名
      * @param args(any)          事件参数
      */
-    dispatchEvent(event: string, args: any = null) {
+    dispatchEvent(event: string, args: any = null, data?: any) {
         let list: Array<EventData> = this.events[event];
 
         if (list != null) {
@@ -201,7 +201,7 @@ export class MessageManager {
             let length = temp.length;
             for (let i = 0; i < length; i++) {
                 let eventBin = temp[i];
-                eventBin.listener.call(eventBin.object, event, args);
+                eventBin.listener.call(eventBin.object, event, args, data);
             }
         }
     }
