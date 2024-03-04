@@ -279,8 +279,9 @@ export class LayerManager {
      * oops.gui.clear();
      */
     clear(isDestroy: boolean = false) {
+        this.pageLayer = 0;
         this.ui.clear(isDestroy);
-        this.popup.clear(isDestroy);
+        // this.popup.clear(isDestroy);
         this.dialog.clear(isDestroy);
         this.system.clear(isDestroy);
     }
