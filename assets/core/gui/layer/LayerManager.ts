@@ -105,6 +105,13 @@ export class LayerManager {
     }
 
     /**
+     * 装备渐隐飘过提示
+     */
+    eqToast(content: string, useI18n: boolean = false) {
+        this.notify.eqShow(content, useI18n);
+    }
+
+    /**
      * 设置界面配置
      * @param uiId   要设置的界面id
      * @param config 要设置的配置

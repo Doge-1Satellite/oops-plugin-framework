@@ -4,7 +4,7 @@
  * @LastEditors: dgflash
  * @LastEditTime: 2022-09-02 13:44:12
  */
-import { error, instantiate, Node, Prefab } from "cc";
+import { error, instantiate, Node, Prefab, UITransform, Vec3 } from "cc";
 import { oops } from "../../Oops";
 import { Notify } from "../prompt/Notify";
 import { ViewParams } from "./Defines";
@@ -18,6 +18,8 @@ const ToastPrefabPath: string = 'Windows/Common/Prefab/notify';
  * 滚动消息提示层
  */
 export class LayerNotify extends LayerUI {
+
+    private notify_num: number = 0;
     /**
      * 显示toast
      * @param content 文本表示
@@ -34,7 +36,7 @@ export class LayerNotify extends LayerUI {
             viewParams.uuid = this.getUuid(prefab);
             viewParams.prefabPath = prefab;
         }
-        viewParams.params = { content: content, useI18n: useI18n };
+        viewParams.params = { content: content, useI18n: useI18n, iseq: false };
         viewParams.callbacks = {};
         viewParams.valid = true;
 
@@ -42,8 +44,26 @@ export class LayerNotify extends LayerUI {
         this.load(viewParams);
     }
 
+    eqShow(content?: string, useI18n?: boolean) {
+        var viewParams = new ViewParams();
+        viewParams.uuid = this.getUuid(ToastPrefabPath);
+        viewParams.prefabPath = ToastPrefabPath;
+        viewParams.params = { content: content, useI18n: useI18n, iseq: true };
+        viewParams.callbacks = {};
+        viewParams.valid = true;
+
+        this.ui_nodes.set(viewParams.uuid, viewParams);
+        this.load(viewParams);
+
+    }
+
+    eqDestroy() {
+
+    }
+
     protected load(viewParams: ViewParams) {
         // 获取预制件资源
+
         oops.res.load("res", viewParams.prefabPath, (err: Error | null, res: Prefab) => {
             if (err) {
                 error(err);
@@ -61,12 +81,35 @@ export class LayerNotify extends LayerUI {
     protected createNode(viewParams: ViewParams) {
         let childNode: Node = super.createNode(viewParams);
         let toastCom = childNode.getComponent(Notify)!;
-        // let annCom = childNode.getComponent(announcementSys)!;
-        childNode.active = true;
-        if (toastCom != null)
-            toastCom.toast(viewParams.params.content, viewParams.params.useI18n);
-        // if(annCom != null)
-        //     annCom.show(viewParams.params.content);
+        if (viewParams.params.iseq) {
+            childNode.active = false;
+            childNode.setPosition(0, 130, 0)
+            childNode.scale = new Vec3(1.5, 1.5, 1);
+            this.notify_num++
+
+            let length = this.notify_num
+            if (toastCom != null)
+                console.log(this.notify_num, 'notify_num');
+            setTimeout(() => {
+                childNode.getComponent(UITransform).priority = length;
+                toastCom.toast(viewParams.params.content, viewParams.params.useI18n, viewParams.params.iseq, length % 3);
+            }, 200 * this.notify_num);
+
+            setTimeout(() => {
+                if (length == this.notify_num) {
+                    this.notify_num = 0;
+                }
+            }, 1000);
+        } else {
+            if (toastCom != null)
+                toastCom.toast(viewParams.params.content, viewParams.params.useI18n, viewParams.params.iseq, 0);
+        }
+
+
+
+
+
+        // toastCom.toast(viewParams.params.content, viewParams.params.useI18n, viewParams.params.iseq);
         return childNode;
     }
 }
