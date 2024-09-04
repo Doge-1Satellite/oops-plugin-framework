@@ -60,4 +60,23 @@ export class ObjectUtil {
     static copy(target: object): object {
         return JSON.parse(JSON.stringify(target));
     }
+
+
+    static merge(target: any, ...sources: any[]): any {
+        sources.forEach(source => {
+            if (source) {
+                Object.keys(source).forEach(key => {
+                    if (typeof source[key] === 'object' && source[key] !== null) {
+                        if (!target[key]) {
+                            target[key] = {};
+                        }
+                        ObjectUtil.merge(target[key], source[key]);
+                    } else {
+                        target[key] = source[key];
+                    }
+                });
+            }
+        });
+        return target;
+    }
 }

@@ -75,6 +75,7 @@ export class Notify extends Component {
                     }
                 })
                 .start()
+                
         } else {
             tween(this.node)
                 .by(1, { position: new Vec3(0, 100, 0) }, {

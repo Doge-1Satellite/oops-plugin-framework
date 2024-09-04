@@ -127,4 +127,9 @@ export class MathUtil {
     static probability(value: number) {
         return Math.random() < value;
     }
+
+
+    static limit(src: number, min: number, max: number) {
+        return Math.min(max, Math.max(min, src));
+    }
 }

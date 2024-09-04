@@ -158,7 +158,9 @@ export class LayerUI extends Node {
         if (viewParams) {
             if (isDestroy)
                 this.ui_nodes.delete(viewParams.uuid);
-
+            if (viewParams.node == null) {
+                return;
+            }
             var childNode = viewParams.node;
             var comp = childNode.getComponent(DelegateComponent)!;
             comp.remove(isDestroy);
