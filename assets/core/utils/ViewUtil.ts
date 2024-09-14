@@ -91,8 +91,8 @@ export class ViewUtil {
      * 从资源缓存中找到预制资源名并创建一个显示对象
      * @param path 资源路径
      */
-    static createPrefabNode(path: string,res?:string): Node {
-        var p: Prefab = oops.res.get(path, Prefab,res)!;
+    static createPrefabNode(path: string, res?: string): Node {
+        var p: Prefab = oops.res.get(path, Prefab, res)!;
         var n = instantiate(p);
         return n;
     }
@@ -101,9 +101,9 @@ export class ViewUtil {
      * 加载预制并创建预制节点
      * @param path 资源路径
      */
-    static createPrefabNodeAsync(path: string,res?:string): Promise<Node> {
+    static createPrefabNodeAsync(path: string, res?: string): Promise<Node> {
         return new Promise(async (resolve, reject) => {
-            oops.res.load(res,path, Prefab, (err: Error | null, content: Prefab) => {
+            oops.res.load(res, path, Prefab, (err: Error | null, content: Prefab) => {
                 if (err) {
                     console.error(`名为【${path}】的资源加载失败`);
                     return;
@@ -120,8 +120,8 @@ export class ViewUtil {
      * @param path          资源路径
      * @param callback      资源加载完成回调
      */
-    static loadPrefabNode(path: string,res:string, callback: Function) {
-        oops.res.load(res,path, Prefab, (err: Error | null, content: Prefab) => {
+    static loadPrefabNode(path: string, res: string, callback: Function) {
+        oops.res.load(res, path, Prefab, (err: Error | null, content: Prefab) => {
             if (err) {
                 console.error(`名为【${path}】的资源加载失败`);
                 return;

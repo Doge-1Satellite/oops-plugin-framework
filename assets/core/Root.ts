@@ -4,7 +4,7 @@
  * @LastEditors: dgflash
  * @LastEditTime: 2023-02-14 18:07:56
  */
-import { Component, Game, JsonAsset, Node, _decorator, director, game, log, sys, view, macro, dynamicAtlasManager } from "cc";
+import { Component, Game, JsonAsset, Node, _decorator, director, game, log, sys, view, macro, dynamicAtlasManager, Button } from "cc";
 import { LanguageManager } from "../libs/gui/language/Language";
 import { BuildTimeConstants } from "../module/config/BuildTimeConstants";
 import { GameConfig } from "../module/config/GameConfig";
@@ -85,6 +85,8 @@ export class Root extends Component {
     }
 
     protected init() {
+
+        // dynamicAtlasManager.enabled = false;
         // console.log("开启动态合图");
         // macro.CLEANUP_IMAGE_CACHE = false;
         // dynamicAtlasManager.enabled = true;
@@ -135,5 +137,8 @@ export class Root extends Component {
                 oops.message.dispatchEvent(EventMessage.GAME_RESIZE);
             });
         }
+
+        //游戏播放按钮音效
+        // Button.prototype._onTouchEnded
     }
 }

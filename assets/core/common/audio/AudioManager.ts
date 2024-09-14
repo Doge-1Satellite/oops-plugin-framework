@@ -84,16 +84,18 @@ export class AudioManager extends Component {
         this._switch_music = value;
 
         if (value == false)
-            this.music.stop();
+            this.music.pause();
+        else if (value == true)
+            this.music.play();
     }
 
     /**
      * 播放音效
      * @param url        资源地址
      */
-    playEffect(bundle:string,url: string) {
+    playEffect(bundle: string, url: string) {
         if (this._switch_effect) {
-            this.effect.load(bundle,url);
+            this.effect.load(bundle, url);
         }
     }
 
@@ -126,6 +128,8 @@ export class AudioManager extends Component {
         this._switch_effect = value;
         if (value == false)
             this.effect.stop();
+        else if (value == true)
+            this.effect.play();
     }
 
     /** 恢复当前暂停的音乐与音效播放 */

@@ -40,10 +40,12 @@ export class AudioMusic extends AudioSource {
      * @param callback     加载完成回调
      */
     public load(url: string, callback?: Function) {
-        oops.res.load(url, AudioClip, (err: Error | null, data: AudioClip) => {
+        oops.res.load('res', url, AudioClip, (err: Error | null, data: AudioClip) => {
             if (err) {
                 error(err);
             }
+
+            this._loop = true;
 
             if (this.playing) {
                 this._isPlay = false;
